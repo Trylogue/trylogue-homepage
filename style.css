@@ -44,7 +44,7 @@ nav a:hover {
     color: #3a7bd5;
 }
 
-/* 言語切替 */
+/* 言語切替ボタン */
 .lang-switch button {
     background: #333;
     color: #fff;
@@ -59,7 +59,7 @@ nav a:hover {
     background: #555;
 }
 
-/* ヒーロー */
+/* ヒーローセクション */
 #hero {
     text-align: center;
     padding: 6rem 1rem;
@@ -135,23 +135,21 @@ h2 {
     color: #fff;
     transition: transform 0.2s;
     text-align: center;
+    width: 160px;
 }
 
 .app-links a:hover {
     transform: scale(1.05);
 }
 
-.app-links img {
-    width: 160px;
-    display: block;
-    margin: 0 auto 0.5rem;
+/* アプリのアイコン */
+.app-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20%;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
 }
-
-.app-links p {
-    font-size: 1rem;
-    margin: 0;
-}
-
 
 
 /* フッター */
