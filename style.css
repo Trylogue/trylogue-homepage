@@ -18,6 +18,7 @@ header {
     align-items: center;
     position: sticky;
     top: 0;
+    flex-wrap: wrap;
 }
 
 header h1 {
@@ -43,7 +44,22 @@ nav a:hover {
     color: #3a7bd5;
 }
 
-/* ヒーローセクション */
+/* 言語切替 */
+.lang-switch button {
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 0.3rem 0.8rem;
+    margin-left: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.lang-switch button:hover {
+    background: #555;
+}
+
+/* ヒーロー */
 #hero {
     text-align: center;
     padding: 6rem 1rem;
@@ -100,7 +116,7 @@ h2 {
     font-size: 1.2rem;
 }
 
-/* Appリンクセクション */
+/* Appリンク */
 #download {
     text-align: center;
     background: #111;
@@ -136,7 +152,7 @@ h2 {
     margin: 0;
 }
 
-/* Contactセクション */
+/* Contact */
 #contact a {
     color: #3a7bd5;
     text-decoration: none;
