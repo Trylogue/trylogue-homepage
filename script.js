@@ -1,6 +1,156 @@
-function scrollToSection(id) {
-    const section = document.getElementById(id);
-    if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
-    }
+/* ベース */
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background: #000;
+    color: #fff;
+}
+
+/* ヘッダー */
+header {
+    background: #111;
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #3a7bd5;
+}
+
+/* ヒーローセクション */
+#hero {
+    text-align: center;
+    padding: 6rem 1rem;
+    background: linear-gradient(to right, #3a7bd5, #3a6073);
+}
+
+#hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+#hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+#hero button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    background: #fff;
+    color: #3a6073;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+
+#hero button:hover {
+    background: #ddd;
+}
+
+/* セクション共通 */
+section {
+    padding: 3rem 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Featuresリスト */
+#features ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+#features li {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+/* Appリンクセクション */
+#download {
+    text-align: center;
+    background: #111;
+    padding: 3rem 1rem;
+}
+
+.app-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.app-links a {
+    text-decoration: none;
+    color: #fff;
+    transition: transform 0.2s;
+    text-align: center;
+}
+
+.app-links a:hover {
+    transform: scale(1.05);
+}
+
+.app-links img {
+    width: 160px;
+    display: block;
+    margin: 0 auto 0.5rem;
+}
+
+.app-links p {
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Contactセクション */
+#contact a {
+    color: #3a7bd5;
+    text-decoration: none;
+}
+
+#contact a:hover {
+    text-decoration: underline;
+}
+
+/* フッター */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background: #111;
+    color: #888;
+    font-size: 0.9rem;
 }
