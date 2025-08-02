@@ -23,7 +23,7 @@ const translations = {
         features_item2: "睡眠・運動・学習データの可視化",
         features_item3: "成長をモチベーションに変えるフィードバック",
         apps_title: "Download Apps",
-        app_sleep: "睡眠アプリ（ネムログ）",
+        app_sleep: "ネムログ",
         app_michi: "ミチログ",
         contact_title: "Contact",
         contact_text: "ご質問やご相談は <a href='mailto:info@trylogue.com'>info@trylogue.com</a> まで"
@@ -44,7 +44,7 @@ const translations = {
         features_item2: "Visualize sleep, exercise, and study data",
         features_item3: "Turn growth into motivation with feedback",
         apps_title: "Download Apps",
-        app_sleep: "Sleep App (Nemulog)",
+        app_sleep: "Nemlog",
         app_michi: "Michilog",
         contact_title: "Contact",
         contact_text: "For inquiries, contact <a href='mailto:info@trylogue.com'>info@trylogue.com</a>"
