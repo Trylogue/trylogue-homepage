@@ -152,15 +152,6 @@ h2 {
     margin: 0;
 }
 
-/* Contact */
-#contact a {
-    color: #3a7bd5;
-    text-decoration: none;
-}
-
-#contact a:hover {
-    text-decoration: underline;
-}
 
 /* フッター */
 footer {
@@ -170,3 +161,4 @@ footer {
     color: #888;
     font-size: 0.9rem;
 }
+
