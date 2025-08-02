@@ -14,38 +14,61 @@
             <ul>
                 <li><a href="#about">About</a></li>
                 <li><a href="#features">Features</a></li>
+                <li><a href="#download">Apps</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- メインコンテンツ -->
-    <main>
-        <section id="hero">
-            <h2>あなたの成長を記録する場所</h2>
-            <p>trylogueは日々の挑戦を可視化し、振り返りをサポートします。</p>
-            <button onclick="scrollToSection('about')">もっと見る</button>
-        </section>
+    <!-- ヒーローセクション -->
+    <section id="hero">
+        <div class="hero-content">
+            <h2>挑戦の記録を、もっと楽しく。</h2>
+            <p>trylogueはあなたの成長を見える化し、毎日の挑戦をサポートします。</p>
+            <button onclick="scrollToSection('about')">もっと知る</button>
+        </div>
+    </section>
 
-        <section id="about">
-            <h2>About</h2>
-            <p>trylogueは成長をテーマにした記録・振り返りサービスです。</p>
-        </section>
+    <!-- Aboutセクション -->
+    <section id="about">
+        <h2>About</h2>
+        <p>trylogueは、挑戦や習慣の記録を通じてあなたの目標達成を支援するサービスです。  
+        振り返りや分析機能を通して、日々の小さな成長を実感できます。</p>
+    </section>
 
-        <section id="features">
-            <h2>Features</h2>
-            <ul>
-                <li>挑戦の記録と可視化</li>
-                <li>進捗のグラフ表示</li>
-                <li>モチベーション維持のサポート</li>
-            </ul>
-        </section>
+    <!-- Featuresセクション -->
+    <section id="features">
+        <h2>Features</h2>
+        <ul>
+            <li>目標の記録と進捗管理</li>
+            <li>睡眠・運動・学習データの可視化</li>
+            <li>成長をモチベーションに変えるフィードバック</li>
+        </ul>
+    </section>
 
-        <section id="contact">
-            <h2>Contact</h2>
-            <p>ご質問やご相談は <a href="mailto:info@trylogue.com">info@trylogue.com</a> まで</p>
-        </section>
-    </main>
+    <!-- App Storeリンク -->
+    <section id="download">
+        <h2>Download Apps</h2>
+        <div class="app-links">
+            <!-- 睡眠アプリ（ネムログ） -->
+            <a href="https://apps.apple.com/jp/app/%E3%83%8D%E3%83%A0%E3%83%AD%E3%82%B0/id6661027528" target="_blank">
+                <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="ネムログをダウンロード">
+                <p>睡眠アプリ（ネムログ）</p>
+            </a>
+
+            <!-- ミチログ -->
+            <a href="https://apps.apple.com/jp/app/%E3%83%9F%E3%83%81%E3%83%AD%E3%82%B0/id6746042856" target="_blank">
+                <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="ミチログをダウンロード">
+                <p>ミチログ</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Contactセクション -->
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>ご質問やご相談は <a href="mailto:info@trylogue.com">info@trylogue.com</a> まで</p>
+    </section>
 
     <!-- フッター -->
     <footer>
