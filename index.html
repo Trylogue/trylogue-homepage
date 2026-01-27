@@ -14,11 +14,11 @@
             --primary: #4F46E5; /* インディゴ */
             --primary-hover: #4338CA;
             --secondary: #10B981; /* エメラルド */
+            --accent: #F59E0B;    /* アンバー（PetaKey用） */
             --bg-color: #F9FAFB;
             --text-main: #111827;
             --text-sub: #6B7280;
             --glass-bg: rgba(255, 255, 255, 0.8);
-            --glass-border: rgba(255, 255, 255, 0.3);
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --radius: 16px;
         }
@@ -200,6 +200,7 @@
             justify-content: center;
             gap: 60px;
             flex-wrap: wrap;
+            align-items: flex-start; /* 上揃え */
         }
 
         .app-item {
@@ -208,20 +209,22 @@
             align-items: center;
             text-decoration: none;
             transition: transform 0.3s;
+            position: relative;
         }
 
-        .app-item:hover {
+        .app-item:not(.coming-soon):hover {
             transform: scale(1.05);
         }
 
         .app-icon {
             width: 100px;
             height: 100px;
-            border-radius: 22px; /* iOS Icon Style */
+            border-radius: 22px;
             box-shadow: var(--shadow);
             margin-bottom: 20px;
             object-fit: cover;
-            background: #eee; /* プレースホルダー背景 */
+            background: #eee;
+            transition: filter 0.3s;
         }
 
         .store-badge {
@@ -234,6 +237,32 @@
             color: var(--text-main);
         }
 
+        /* Coming Soon スタイル */
+        .app-item.coming-soon {
+            cursor: default;
+        }
+
+        .app-item.coming-soon .app-icon {
+            filter: grayscale(100%);
+            opacity: 0.6;
+        }
+
+        .coming-soon-badge {
+            height: 40px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #F3F4F6;
+            color: #6B7280;
+            padding: 0 20px;
+            border-radius: 8px; /* Storeバッジに似せた形状 */
+            font-weight: 700;
+            font-size: 0.85rem;
+            border: 1px solid #E5E7EB;
+            white-space: nowrap;
+        }
+
         /* --- Footer --- */
         footer {
             text-align: center;
@@ -244,12 +273,11 @@
             font-size: 0.9rem;
         }
 
-        /* --- アニメーション用クラス --- */
+        /* --- アニメーション --- */
         .fade-in-section {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-            will-change: opacity, visibility;
         }
         .fade-in-section.is-visible {
             opacity: 1;
@@ -264,7 +292,7 @@
         /* --- モバイル対応 --- */
         @media (max-width: 768px) {
             header { padding: 15px 20px; }
-            nav { display: none; /* 簡易的に非表示（本来はハンバーガーメニュー推奨） */ }
+            nav { display: none; }
             .hero-content h2 { font-size: 2.5rem; }
             .app-links { gap: 40px; }
         }
@@ -340,6 +368,12 @@
                 <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on App Store" class="store-badge">
                 <p class="app-name" data-i18n="app_michi">G-Logue</p>
             </a>
+
+            <div class="app-item coming-soon">
+                <img src="petakey-icon.png" alt="PetaKey" class="app-icon" onerror="this.src='https://placehold.co/100x100/F59E0B/white?text=P'">
+                <div class="coming-soon-badge" data-i18n="coming_soon">Coming Soon</div>
+                <p class="app-name">PetaKey</p>
+            </div>
         </div>
     </section>
 
@@ -348,7 +382,6 @@
     </footer>
 
     <script>
-        // --- 多言語設定データ ---
         const translations = {
             ja: {
                 title: "Trylogue",
@@ -369,7 +402,8 @@
                 features_item3: "成長をモチベーションに変えるフィードバック",
                 apps_title: "Download Apps",
                 app_sleep: "Cromo - 睡眠記録",
-                app_michi: "G-Logue - 目標達成"
+                app_michi: "G-Logue - 目標達成",
+                coming_soon: "近日リリース" // 追加
             },
             en: {
                 title: "Trylogue",
@@ -390,11 +424,11 @@
                 features_item3: "Turn growth into motivation with smart feedback.",
                 apps_title: "Download Apps",
                 app_sleep: "Cromo - Sleep Log",
-                app_michi: "G-Logue - Growth Log"
+                app_michi: "G-Logue - Growth Log",
+                coming_soon: "Coming Soon" // 追加
             }
         };
 
-        // 言語切り替え関数
         function setLanguage(lang) {
             document.documentElement.lang = lang;
             const elements = document.querySelectorAll('[data-i18n]');
@@ -402,7 +436,7 @@
                 const key = el.getAttribute('data-i18n');
                 if (translations[lang][key]) {
                     if (key.includes('hero_title')) {
-                         el.innerHTML = translations[lang][key]; // HTMLタグを含む場合
+                         el.innerHTML = translations[lang][key];
                     } else {
                         el.innerText = translations[lang][key];
                     }
@@ -410,18 +444,13 @@
             });
         }
 
-        // スクロール時のフェードインアニメーション
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
+        // スクロール時のフェードイン
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target); // 一度表示したら監視を終了
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
@@ -429,6 +458,11 @@
         document.querySelectorAll('.fade-in-section').forEach(section => {
             observer.observe(section);
         });
+
+        window.addEventListener("DOMContentLoaded", () => setLanguage("en"));
+    </script>
+</body>
+</html>
 
         // 初期設定
         window.addEventListener("DOMContentLoaded", () => setLanguage("en"));
