@@ -44,7 +44,7 @@ const translations = {
         features_item2: "Visualize sleep, exercise, and study data",
         features_item3: "Turn growth into motivation with feedback",
         apps_title: "Download Apps",
-        app_sleep: "Nemlog",
+        app_sleep: "Cromo",
         app_michi: "G-Logue",
         contact_title: "Contact"
         
