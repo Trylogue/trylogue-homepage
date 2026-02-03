@@ -15,11 +15,11 @@
             --primary-hover: #4338CA;
             --secondary: #10B981; /* エメラルド */
             --accent: #F59E0B;    /* アンバー（PetaKey用） */
-            --bg-color: #F9FAFB;
-            --text-main: #111827;
-            --text-sub: #6B7280;
-            --glass-bg: rgba(255, 255, 255, 0.8);
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --bg-color: #0B0B0F;
+            --text-main: #F9FAFB;
+            --text-sub: #A1A1AA;
+            --glass-bg: rgba(15, 15, 18, 0.78);
+            --shadow: 0 12px 32px -16px rgba(0, 0, 0, 0.7), 0 6px 18px -8px rgba(0, 0, 0, 0.5);
             --radius: 16px;
         }
 
@@ -53,7 +53,7 @@
             padding: 15px 40px;
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         header h1 {
@@ -76,11 +76,11 @@
             color: var(--text-sub);
         }
 
-        nav a:hover { color: var(--primary); }
+        nav a:hover { color: #E0E7FF; }
 
         .lang-switch button {
             background: none;
-            border: 1px solid #E5E7EB;
+            border: 1px solid #2A2A32;
             padding: 5px 12px;
             border-radius: 20px;
             cursor: pointer;
@@ -91,7 +91,7 @@
 
         .lang-switch button:hover {
             border-color: var(--primary);
-            color: var(--primary);
+            color: #E0E7FF;
         }
 
         /* --- ヒーローセクション --- */
@@ -102,7 +102,7 @@
             justify-content: center;
             text-align: center;
             position: relative;
-            background: radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.05) 0%, rgba(255,255,255,0) 70%);
+            background: radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.2) 0%, rgba(11, 11, 15, 0) 70%);
         }
 
         .hero-content {
@@ -134,7 +134,7 @@
             border: none;
             cursor: pointer;
             font-size: 1rem;
-            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.4);
+            box-shadow: 0 12px 30px -8px rgba(79, 70, 229, 0.6);
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
@@ -161,12 +161,12 @@
         }
 
         .feature-card {
-            background: white;
+            background: #14141A;
             padding: 40px;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             transition: transform 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             text-align: center;
         }
 
@@ -179,8 +179,8 @@
             margin-bottom: 20px;
             display: inline-block;
             padding: 15px;
-            background: #EEF2FF;
-            color: var(--primary);
+            background: rgba(79, 70, 229, 0.15);
+            color: #C7D2FE;
             border-radius: 50%;
         }
 
@@ -223,7 +223,7 @@
             box-shadow: var(--shadow);
             margin-bottom: 20px;
             object-fit: cover;
-            background: #eee;
+            background: #1F1F28;
             transition: filter 0.3s;
         }
 
@@ -253,13 +253,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #F3F4F6;
-            color: #6B7280;
+            background: #1F1F28;
+            color: #A1A1AA;
             padding: 0 20px;
             border-radius: 8px; /* Storeバッジに似せた形状 */
             font-weight: 700;
             font-size: 0.85rem;
-            border: 1px solid #E5E7EB;
+            border: 1px solid #2A2A32;
             white-space: nowrap;
         }
 
@@ -267,8 +267,8 @@
         footer {
             text-align: center;
             padding: 40px;
-            background: white;
-            border-top: 1px solid #E5E7EB;
+            background: #111117;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             color: var(--text-sub);
             font-size: 0.9rem;
         }
