@@ -11,16 +11,18 @@
     <style>
         /* --- 変数定義 --- */
         :root {
-            --primary: #4F46E5; /* インディゴ */
-            --primary-hover: #4338CA;
-            --secondary: #10B981; /* エメラルド */
+            --primary: #7C3AED;
+            --primary-hover: #6D28D9;
+            --secondary: #22D3EE;
             --accent: #F59E0B;    /* アンバー（PetaKey用） */
-            --bg-color: #F9FAFB;
-            --text-main: #111827;
-            --text-sub: #6B7280;
-            --glass-bg: rgba(255, 255, 255, 0.8);
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --radius: 16px;
+            --bg-color: #0B1020;
+            --text-main: #E5E7EB;
+            --text-sub: #94A3B8;
+            --glass-bg: rgba(16, 24, 40, 0.7);
+            --shadow: 0 25px 60px -30px rgba(124, 58, 237, 0.8);
+            --radius: 18px;
+            --neon-border: rgba(124, 58, 237, 0.45);
+            --grid-line: rgba(148, 163, 184, 0.08);
         }
 
         /* --- 基本設定 --- */
@@ -36,6 +38,32 @@
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        body::before {
+            background:
+                radial-gradient(circle at 15% 20%, rgba(124, 58, 237, 0.25), transparent 45%),
+                radial-gradient(circle at 80% 15%, rgba(34, 211, 238, 0.2), transparent 40%),
+                radial-gradient(circle at 70% 80%, rgba(59, 130, 246, 0.2), transparent 45%);
+        }
+
+        body::after {
+            background-image:
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -1;
+            opacity: 0.35;
         }
 
         a { text-decoration: none; color: inherit; transition: 0.3s; }
@@ -53,7 +81,8 @@
             padding: 15px 40px;
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+            box-shadow: 0 12px 40px rgba(2, 8, 23, 0.55);
         }
 
         header h1 {
@@ -76,11 +105,11 @@
             color: var(--text-sub);
         }
 
-        nav a:hover { color: var(--primary); }
+        nav a:hover { color: var(--secondary); }
 
         .lang-switch button {
             background: none;
-            border: 1px solid #E5E7EB;
+            border: 1px solid rgba(148, 163, 184, 0.4);
             padding: 5px 12px;
             border-radius: 20px;
             cursor: pointer;
@@ -90,8 +119,8 @@
         }
 
         .lang-switch button:hover {
-            border-color: var(--primary);
-            color: var(--primary);
+            border-color: var(--secondary);
+            color: var(--secondary);
         }
 
         /* --- ヒーローセクション --- */
@@ -102,12 +131,17 @@
             justify-content: center;
             text-align: center;
             position: relative;
-            background: radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.05) 0%, rgba(255,255,255,0) 70%);
+            background: radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.18) 0%, rgba(11, 16, 32, 0) 70%);
         }
 
         .hero-content {
             max-width: 800px;
             animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+            padding: 30px 40px;
+            background: rgba(15, 23, 42, 0.55);
+            border-radius: 28px;
+            border: 1px solid rgba(124, 58, 237, 0.25);
+            box-shadow: 0 30px 80px rgba(2, 6, 23, 0.6);
         }
 
         .hero-content h2 {
@@ -116,6 +150,9 @@
             margin-bottom: 24px;
             font-weight: 800;
             letter-spacing: -0.03em;
+            background: linear-gradient(120deg, #fff, var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero-content p {
@@ -127,21 +164,21 @@
         .cta-button {
             display: inline-block;
             padding: 16px 48px;
-            background: var(--primary);
+            background: linear-gradient(120deg, var(--primary), var(--secondary));
             color: white;
             font-weight: 600;
             border-radius: 50px;
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
             font-size: 1rem;
-            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.4);
+            box-shadow: 0 15px 40px -10px rgba(124, 58, 237, 0.7);
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 30px -5px rgba(79, 70, 229, 0.5);
-            background: var(--primary-hover);
+            box-shadow: 0 20px 50px -10px rgba(34, 211, 238, 0.6);
+            background: linear-gradient(120deg, var(--primary-hover), var(--secondary));
         }
 
         /* --- セクション共通タイトル --- */
@@ -161,13 +198,14 @@
         }
 
         .feature-card {
-            background: white;
+            background: rgba(15, 23, 42, 0.8);
             padding: 40px;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             transition: transform 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.03);
+            border: 1px solid var(--neon-border);
             text-align: center;
+            backdrop-filter: blur(8px);
         }
 
         .feature-card:hover {
@@ -179,9 +217,10 @@
             margin-bottom: 20px;
             display: inline-block;
             padding: 15px;
-            background: #EEF2FF;
-            color: var(--primary);
+            background: rgba(124, 58, 237, 0.2);
+            color: var(--secondary);
             border-radius: 50%;
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
         }
 
         .feature-card h3 {
@@ -220,11 +259,12 @@
             width: 100px;
             height: 100px;
             border-radius: 22px;
-            box-shadow: var(--shadow);
+            box-shadow: 0 20px 40px rgba(2, 6, 23, 0.45);
             margin-bottom: 20px;
             object-fit: cover;
-            background: #eee;
+            background: rgba(15, 23, 42, 0.9);
             transition: filter 0.3s;
+            border: 1px solid rgba(148, 163, 184, 0.2);
         }
 
         .store-badge {
@@ -253,13 +293,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #F3F4F6;
-            color: #6B7280;
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--text-sub);
             padding: 0 20px;
             border-radius: 8px; /* Storeバッジに似せた形状 */
             font-weight: 700;
             font-size: 0.85rem;
-            border: 1px solid #E5E7EB;
+            border: 1px solid rgba(148, 163, 184, 0.35);
             white-space: nowrap;
         }
 
@@ -267,8 +307,8 @@
         footer {
             text-align: center;
             padding: 40px;
-            background: white;
-            border-top: 1px solid #E5E7EB;
+            background: rgba(15, 23, 42, 0.8);
+            border-top: 1px solid rgba(148, 163, 184, 0.15);
             color: var(--text-sub);
             font-size: 0.9rem;
         }
