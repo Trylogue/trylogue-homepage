@@ -24,7 +24,7 @@ const translations = {
         features_item3: "成長をモチベーションに変えるフィードバック",
         apps_title: "Download Apps",
         app_sleep: "Cromo",
-        app_michi: "G-Logue",
+        app_michi: "Level U",
         contact_title: "Contact"
         
     },
@@ -45,7 +45,7 @@ const translations = {
         features_item3: "Turn growth into motivation with feedback",
         apps_title: "Download Apps",
         app_sleep: "Cromo",
-        app_michi: "G-Logue",
+        app_michi: "Level U",
         contact_title: "Contact"
         
     }
