@@ -1,515 +1,489 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trylogue - Growth Journey</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* --- 変数定義 --- */
-        :root {
-            --primary: #7C3AED;
-            --primary-hover: #6D28D9;
-            --secondary: #22D3EE;
-            --accent: #F59E0B;    /* アンバー（PetaKey用） */
-            --bg-color: #0B1020;
-            --text-main: #E5E7EB;
-            --text-sub: #94A3B8;
-            --glass-bg: rgba(16, 24, 40, 0.7);
-            --shadow: 0 25px 60px -30px rgba(124, 58, 237, 0.8);
-            --radius: 18px;
-            --neon-border: rgba(124, 58, 237, 0.45);
-            --grid-line: rgba(148, 163, 184, 0.08);
-        }
-
-        /* --- 基本設定 --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', 'Noto Sans JP', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        body::before,
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: -2;
-        }
-
-        body::before {
-            background:
-                radial-gradient(circle at 15% 20%, rgba(124, 58, 237, 0.25), transparent 45%),
-                radial-gradient(circle at 80% 15%, rgba(34, 211, 238, 0.2), transparent 40%),
-                radial-gradient(circle at 70% 80%, rgba(59, 130, 246, 0.2), transparent 45%);
-        }
-
-        body::after {
-            background-image:
-                linear-gradient(var(--grid-line) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-            background-size: 60px 60px;
-            z-index: -1;
-            opacity: 0.35;
-        }
-
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-        ul { list-style: none; }
-        section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
-
-        /* --- ヘッダー (Glassmorphism) --- */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 40px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(148, 163, 184, 0.15);
-            box-shadow: 0 12px 40px rgba(2, 8, 23, 0.55);
-        }
-
-        header h1 {
-            font-weight: 800;
-            font-size: 1.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.05em;
-        }
-
-        nav ul {
-            display: flex;
-            gap: 30px;
-        }
-
-        nav a {
-            font-weight: 500;
-            font-size: 0.95rem;
-            color: var(--text-sub);
-        }
-
-        nav a:hover { color: var(--secondary); }
-
-        .lang-switch button {
-            background: none;
-            border: 1px solid rgba(148, 163, 184, 0.4);
-            padding: 5px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: 0.3s;
-            color: var(--text-sub);
-        }
-
-        .lang-switch button:hover {
-            border-color: var(--secondary);
-            color: var(--secondary);
-        }
-
-        /* --- ヒーローセクション --- */
-        #hero {
-            min-height: 80vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            background: radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.18) 0%, rgba(11, 16, 32, 0) 70%);
-        }
-
-        .hero-content {
-            max-width: 800px;
-            animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-            padding: 30px 40px;
-            background: rgba(15, 23, 42, 0.55);
-            border-radius: 28px;
-            border: 1px solid rgba(124, 58, 237, 0.25);
-            box-shadow: 0 30px 80px rgba(2, 6, 23, 0.6);
-        }
-
-        .hero-content h2 {
-            font-size: 3.5rem;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            background: linear-gradient(120deg, #fff, var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-content p {
-            font-size: 1.25rem;
-            color: var(--text-sub);
-            margin-bottom: 40px;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 16px 48px;
-            background: linear-gradient(120deg, var(--primary), var(--secondary));
-            color: white;
-            font-weight: 600;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-            font-size: 1rem;
-            box-shadow: 0 15px 40px -10px rgba(124, 58, 237, 0.7);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 50px -10px rgba(34, 211, 238, 0.6);
-            background: linear-gradient(120deg, var(--primary-hover), var(--secondary));
-        }
-
-        /* --- セクション共通タイトル --- */
-        section h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 60px;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-        }
-
-        /* --- About & Features (カードデザイン) --- */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            background: rgba(15, 23, 42, 0.8);
-            padding: 40px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
-            border: 1px solid var(--neon-border);
-            text-align: center;
-            backdrop-filter: blur(8px);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            display: inline-block;
-            padding: 15px;
-            background: rgba(124, 58, 237, 0.2);
-            color: var(--secondary);
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
-        }
-
-        .feature-card h3 {
-            margin-bottom: 15px;
-            font-size: 1.25rem;
-        }
-
-        .feature-card p {
-            color: var(--text-sub);
-            font-size: 0.95rem;
-        }
-
-        /* --- Download Section --- */
-        .app-links {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            flex-wrap: wrap;
-            align-items: flex-start; /* 上揃え */
-        }
-
-        .app-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            transition: transform 0.3s;
-            position: relative;
-        }
-
-        .app-item:not(.coming-soon):hover {
-            transform: scale(1.05);
-        }
-
-        .app-icon {
-            width: 100px;
-            height: 100px;
-            border-radius: 22px;
-            box-shadow: 0 20px 40px rgba(2, 6, 23, 0.45);
-            margin-bottom: 20px;
-            object-fit: cover;
-            background: rgba(15, 23, 42, 0.9);
-            transition: filter 0.3s;
-            border: 1px solid rgba(148, 163, 184, 0.2);
-        }
-
-        .store-badge {
-            height: 40px;
-            margin-bottom: 10px;
-        }
-
-        .app-name {
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        /* Coming Soon スタイル */
-        .app-item.coming-soon {
-            cursor: default;
-        }
-
-        .app-item.coming-soon .app-icon {
-            filter: grayscale(100%);
-            opacity: 0.6;
-        }
-
-        .coming-soon-badge {
-            height: 40px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(15, 23, 42, 0.9);
-            color: var(--text-sub);
-            padding: 0 20px;
-            border-radius: 8px; /* Storeバッジに似せた形状 */
-            font-weight: 700;
-            font-size: 0.85rem;
-            border: 1px solid rgba(148, 163, 184, 0.35);
-            white-space: nowrap;
-        }
-
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            padding: 40px;
-            background: rgba(15, 23, 42, 0.8);
-            border-top: 1px solid rgba(148, 163, 184, 0.15);
-            color: var(--text-sub);
-            font-size: 0.9rem;
-        }
-
-        /* --- アニメーション --- */
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .fade-in-section.is-visible {
-            opacity: 1;
-            transform: none;
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- モバイル対応 --- */
-        @media (max-width: 768px) {
-            header { padding: 15px 20px; }
-            nav { display: none; }
-            .hero-content h2 { font-size: 2.5rem; }
-            .app-links { gap: 40px; }
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1 data-i18n="title">Trylogue</h1>
-        <nav>
-            <ul>
-                <li><a href="#about" data-i18n="nav_about">About</a></li>
-                <li><a href="#features" data-i18n="nav_features">Features</a></li>
-                <li><a href="#download" data-i18n="nav_apps">Apps</a></li>
-            </ul>
-        </nav>
-        <div class="lang-switch">
-            <button onclick="setLanguage('ja')">JP</button>
-            <button onclick="setLanguage('en')">EN</button>
-        </div>
-    </header>
-
-    <section id="hero">
-        <div class="hero-content">
-            <h2 data-i18n="hero_title">挑戦の記録を、<br>もっと楽しく。</h2>
-            <p data-i18n="hero_subtitle">Trylogueはあなたの成長を見える化し、毎日の挑戦をサポートします。</p>
-            <button class="cta-button" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})" data-i18n="hero_button">もっと知る</button>
-        </div>
-    </section>
-
-    <section id="about" class="fade-in-section">
-        <h2 data-i18n="about_title">About</h2>
-        <div style="text-align: center; max-width: 700px; margin: 0 auto; color: var(--text-sub); font-size: 1.1rem;">
-            <p data-i18n="about_text">
-                Trylogueは、挑戦や習慣の記録を通じてあなたの目標達成を支援するサービスです。
-                振り返りや分析機能を通して、日々の小さな成長を実感できます。
-            </p>
-        </div>
-    </section>
-
-    <section id="features" class="fade-in-section">
-        <h2 data-i18n="features_title">Features</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <span class="feature-icon">🎯</span>
-                <h3 data-i18n="features_item1_title">目標管理</h3>
-                <p data-i18n="features_item1">目標の記録と進捗を直感的に管理。自分の立ち位置が一目でわかります。</p>
-            </div>
-            <div class="feature-card">
-                <span class="feature-icon">📊</span>
-                <h3 data-i18n="features_item2_title">データ可視化</h3>
-                <p data-i18n="features_item2">睡眠・運動・学習データをグラフ化。客観的なデータで生活を改善。</p>
-            </div>
-            <div class="feature-card">
-                <span class="feature-icon">💡</span>
-                <h3 data-i18n="features_item3_title">フィードバック</h3>
-                <p data-i18n="features_item3">成長をモチベーションに変えるインサイトを提供し、継続をサポート。</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="download" class="fade-in-section">
-    <h2 data-i18n="apps_title">Download Apps</h2>
-    <div class="app-links">
-        <a href="https://apps.apple.com/jp/app/%E3%83%8D%E3%83%A0%E3%83%AD%E3%82%B0/id6661027528" target="_blank" class="app-item">
-            <img src="Cromo-icon.png" alt="Cromo" class="app-icon" onerror="this.src='https://placehold.co/100x100/4F46E5/white?text=C'">
-            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on App Store" class="store-badge">
-            <p class="app-name" data-i18n="app_sleep">Cromo</p>
-        </a>
-
-        <a href="https://apps.apple.com/jp/app/%E3%83%9F%E3%83%81%E3%83%AD%E3%82%B0/id6746042856" target="_blank" class="app-item">
-            <img src="LevelU-icon" alt="G-Logue" class="app-icon" onerror="this.src='https://placehold.co/100x100/10B981/white?text=G'">
-            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on App Store" class="store-badge">
-            <p class="app-name" data-i18n="app_michi">G-Logue</p>
-        </a>
-
-        <a href="https://apps.apple.com/jp/app/id6757783818" target="_blank" class="app-item">
-            <img src="PetaKey-icon" alt="PetaKey" class="app-icon" onerror="this.src='https://placehold.co/100x100/F59E0B/white?text=P'">
-            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on App Store" class="store-badge">
-            <p class="app-name" data-i18n="app_petakey">PetaKey</p>
-        </a>
-    </div>
-</section>
-
-
-    <footer>
-        <p>&copy; 2025 Trylogue. All rights reserved.</p>
-    </footer>
-
-    <script>
-        const translations = {
-            ja: {
-                title: "Trylogue",
-                nav_about: "About",
-                nav_features: "Features",
-                nav_apps: "Apps",
-                hero_title: "挑戦の記録を、<br>もっと楽しく。",
-                hero_subtitle: "Trylogueはあなたの成長を見える化し、毎日の挑戦をサポートします。",
-                hero_button: "もっと知る",
-                about_title: "About",
-                about_text: "Trylogueは、挑戦や習慣の記録を通じてあなたの目標達成を支援するサービスです。振り返りや分析機能を通して、日々の小さな成長を実感できます。",
-                features_title: "Features",
-                features_item1_title: "目標管理",
-                features_item1: "目標の記録と進捗管理",
-                features_item2_title: "データ可視化",
-                features_item2: "睡眠・運動・学習データの可視化",
-                features_item3_title: "フィードバック",
-                features_item3: "成長をモチベーションに変えるフィードバック",
-                apps_title: "Download Apps",
-                app_sleep: "Cromo - 睡眠記録",
-                app_michi: "G-Logue - 目標達成",
-                app_petakey: "PetaKey - 完成版",
-                coming_soon: "近日リリース" // 追加
-            },
-            en: {
-                title: "Trylogue",
-                nav_about: "About",
-                nav_features: "Features",
-                nav_apps: "Apps",
-                hero_title: "Make Your Journey<br>More Exciting.",
-                hero_subtitle: "Trylogue visualizes your growth and supports your daily challenges.",
-                hero_button: "Learn More",
-                about_title: "About",
-                about_text: "Trylogue helps you achieve your goals by tracking your challenges and habits. Feel your daily growth through reflection and analysis.",
-                features_title: "Features",
-                features_item1_title: "Goal Tracking",
-                features_item1: "Record goals and manage progress efficiently.",
-                features_item2_title: "Data Visualization",
-                features_item2: "Visualize sleep, exercise, and learning data.",
-                features_item3_title: "Feedback",
-                features_item3: "Turn growth into motivation with smart feedback.",
-                apps_title: "Download Apps",
-                app_sleep: "Cromo - Sleep Log",
-                app_michi: "Level U - Work Log",
-                app_petakey: "PetaKey - Password manager",
-                coming_soon: "Coming Soon" // 追加
-            }
-        };
-
-        function setLanguage(lang) {
-            document.documentElement.lang = lang;
-            const elements = document.querySelectorAll('[data-i18n]');
-            elements.forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang][key]) {
-                    if (key.includes('hero_title')) {
-                         el.innerHTML = translations[lang][key];
-                    } else {
-                        el.innerText = translations[lang][key];
+    <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Trylogue - Growth Journey</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+        <style>
+                    /* --- 変数定義 --- */
+                    :root {
+                                    --primary: #7C3AED;
+                                    --primary-hover: #6D28D9;
+                                    --secondary: #22D3EE;
+                                    --accent: #F59E0B;
+                                    --bg-color: #0B1020;
+                                    --text-main: #E5E7EB;
+                                    --text-sub: #94A3B8;
+                                    --glass-bg: rgba(16, 24, 40, 0.7);
+                                    --shadow: 0 25px 60px -30px rgba(124, 58, 237, 0.8);
+                                    --radius: 18px;
+                                    --neon-border: rgba(124, 58, 237, 0.45);
+                                    --grid-line: rgba(148, 163, 184, 0.08);
                     }
-                }
-            });
-        }
+                    /* --- 基本設定 --- */
+                    * { margin: 0; padding: 0; box-sizing: border-box; }
+                    body {
+                                    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+                                    background-color: var(--bg-color);
+                                    color: var(--text-main);
+                                    line-height: 1.6;
+                                    overflow-x: hidden;
+                                    position: relative;
+                    }
+                    body::before, body::after {
+                                    content: '';
+                                    position: fixed;
+                                    inset: 0;
+                                    pointer-events: none;
+                                    z-index: -2;
+                    }
+                    body::before {
+                                    background:
+                                                        radial-gradient(circle at 15% 20%, rgba(124, 58, 237, 0.25), transparent 45%),
+                                                        radial-gradient(circle at 80% 15%, rgba(34, 211, 238, 0.2), transparent 40%),
+                                                        radial-gradient(circle at 70% 80%, rgba(59, 130, 246, 0.2), transparent 45%);
+                    }
+                    body::after {
+                                    background-image:
+                                                        linear-gradient(var(--grid-line) 1px, transparent 1px),
+                                                        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+                                    background-size: 60px 60px;
+                                    z-index: -1;
+                                    opacity: 0.35;
+                    }
+                    a { text-decoration: none; color: inherit; transition: 0.3s; }
+                    ul { list-style: none; }
+                    section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
 
-        // スクロール時のフェードイン
-        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
+                    /* --- ヘッダー --- */
+                    header {
+                                    position: sticky;
+                                    top: 0;
+                                    z-index: 1000;
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    padding: 15px 40px;
+                                    background: var(--glass-bg);
+                                    backdrop-filter: blur(12px);
+                                    border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+                                    box-shadow: 0 12px 40px rgba(2, 8, 23, 0.55);
+                    }
+                    header h1 {
+                                    font-weight: 800;
+                                    font-size: 1.5rem;
+                                    background: linear-gradient(135deg, var(--primary), var(--secondary));
+                                    -webkit-background-clip: text;
+                                    -webkit-text-fill-color: transparent;
+                                    letter-spacing: -0.05em;
+                    }
+                    nav ul { display: flex; gap: 30px; }
+                    nav a { font-weight: 500; font-size: 0.95rem; color: var(--text-sub); }
+                    nav a:hover { color: var(--secondary); }
+                    .lang-switch button {
+                                    background: none;
+                                    border: 1px solid rgba(148, 163, 184, 0.4);
+                                    padding: 5px 12px;
+                                    border-radius: 20px;
+                                    cursor: pointer;
+                                    font-size: 0.8rem;
+                                    transition: 0.3s;
+                                    color: var(--text-sub);
+                    }
+                    .lang-switch button:hover { border-color: var(--secondary); color: var(--secondary); }
 
-        document.querySelectorAll('.fade-in-section').forEach(section => {
-            observer.observe(section);
-        });
+                    /* --- ヒーローセクション --- */
+                    #hero {
+                                    min-height: 80vh;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    text-align: center;
+                                    position: relative;
+                                    background: radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.18) 0%, rgba(11, 16, 32, 0) 70%);
+                    }
+                    .hero-content {
+                                    max-width: 800px;
+                                    animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+                                    padding: 30px 40px;
+                                    background: rgba(15, 23, 42, 0.55);
+                                    border-radius: 28px;
+                                    border: 1px solid rgba(124, 58, 237, 0.25);
+                                    box-shadow: 0 30px 80px rgba(2, 6, 23, 0.6);
+                    }
+                    .hero-content h2 {
+                                    font-size: 3.5rem;
+                                    line-height: 1.1;
+                                    margin-bottom: 24px;
+                                    font-weight: 800;
+                                    letter-spacing: -0.03em;
+                                    background: linear-gradient(120deg, #fff, var(--secondary));
+                                    -webkit-background-clip: text;
+                                    -webkit-text-fill-color: transparent;
+                    }
+                    .hero-content p { font-size: 1.25rem; color: var(--text-sub); margin-bottom: 40px; }
+                    .cta-button {
+                                    display: inline-block;
+                                    padding: 16px 48px;
+                                    background: linear-gradient(120deg, var(--primary), var(--secondary));
+                                    color: white;
+                                    font-weight: 600;
+                                    border-radius: 50px;
+                                    border: 1px solid rgba(255, 255, 255, 0.2);
+                                    cursor: pointer;
+                                    font-size: 1rem;
+                                    box-shadow: 0 15px 40px -10px rgba(124, 58, 237, 0.7);
+                                    transition: transform 0.2s, box-shadow 0.2s;
+                    }
+                    .cta-button:hover {
+                                    transform: translateY(-2px);
+                                    box-shadow: 0 20px 50px -10px rgba(34, 211, 238, 0.6);
+                                    background: linear-gradient(120deg, var(--primary-hover), var(--secondary));
+                    }
 
-        window.addEventListener("DOMContentLoaded", () => setLanguage("en"));
-    </script>
-</body>
-</html>
+                    /* --- セクション共通タイトル --- */
+                    section h2 {
+                                    font-size: 2.5rem;
+                                    text-align: center;
+                                    margin-bottom: 60px;
+                                    font-weight: 800;
+                                    letter-spacing: -0.02em;
+                    }
 
-        // 初期設定
-        window.addEventListener("DOMContentLoaded", () => setLanguage("en"));
-    </script>
-</body>
-</html>
+                    /* --- About & Features --- */
+                    .features-grid {
+                                    display: grid;
+                                    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                                    gap: 30px;
+                    }
+                    .feature-card {
+                                    background: rgba(15, 23, 42, 0.8);
+                                    padding: 40px;
+                                    border-radius: var(--radius);
+                                    box-shadow: var(--shadow);
+                                    transition: transform 0.3s ease;
+                                    border: 1px solid var(--neon-border);
+                                    text-align: center;
+                                    backdrop-filter: blur(8px);
+                    }
+                    .feature-card:hover { transform: translateY(-5px); }
+                    .feature-icon {
+                                    font-size: 2rem;
+                                    margin-bottom: 20px;
+                                    display: inline-block;
+                                    padding: 15px;
+                                    background: rgba(124, 58, 237, 0.2);
+                                    color: var(--secondary);
+                                    border-radius: 50%;
+                                    box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
+                    }
+                    .feature-card h3 { margin-bottom: 15px; font-size: 1.25rem; }
+                    .feature-card p { color: var(--text-sub); font-size: 0.95rem; }
 
+                    /* --- Download Section --- */
+                    .app-links {
+                                    display: flex;
+                                    justify-content: center;
+                                    gap: 40px;
+                                    flex-wrap: wrap;
+                                    align-items: flex-start;
+                    }
+                    .app-item {
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-items: center;
+                                    text-decoration: none;
+                                    transition: transform 0.3s;
+                                    position: relative;
+                    }
+                    .app-item:not(.coming-soon):hover { transform: scale(1.05); }
+                    .app-icon {
+                                    width: 100px;
+                                    height: 100px;
+                                    border-radius: 22px;
+                                    box-shadow: 0 20px 40px rgba(2, 6, 23, 0.45);
+                                    margin-bottom: 20px;
+                                    object-fit: cover;
+                                    background: rgba(15, 23, 42, 0.9);
+                                    transition: filter 0.3s;
+                                    border: 1px solid rgba(148, 163, 184, 0.2);
+                    }
+                    .store-badge { height: 40px; margin-bottom: 10px; }
+                    .app-name { font-weight: 600; color: var(--text-main); }
+
+                    /* Coming Soon スタイル */
+                    .app-item.coming-soon { cursor: default; }
+                    .app-item.coming-soon .app-icon { filter: grayscale(100%); opacity: 0.6; }
+                    .coming-soon-badge {
+                                    height: 40px;
+                                    margin-bottom: 10px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    background: rgba(15, 23, 42, 0.9);
+                                    color: var(--text-sub);
+                                    padding: 0 20px;
+                                    border-radius: 8px;
+                                    font-weight: 700;
+                                    font-size: 0.85rem;
+                                    border: 1px solid rgba(148, 163, 184, 0.35);
+                                    white-space: nowrap;
+                    }
+
+                    /* --- Footer --- */
+                    footer {
+                                    text-align: center;
+                                    padding: 40px;
+                                    background: rgba(15, 23, 42, 0.8);
+                                    border-top: 1px solid rgba(148, 163, 184, 0.15);
+                                    color: var(--text-sub);
+                                    font-size: 0.9rem;
+                    }
+
+                    /* --- アニメーション --- */
+                    .fade-in-section {
+                                    opacity: 0;
+                                    transform: translateY(20px);
+                                    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+                    }
+                    .fade-in-section.is-visible { opacity: 1; transform: none; }
+                    @keyframes fadeUp {
+                                    from { opacity: 0; transform: translateY(30px); }
+                                    to { opacity: 1; transform: translateY(0); }
+                    }
+
+                    /* --- モバイル対応 --- */
+                    @media (max-width: 768px) {
+                                    header { padding: 15px 20px; }
+                                    nav { display: none; }
+                                    .hero-content h2 { font-size: 2.5rem; }
+                                    .app-links { gap: 30px; }
+                    }
+                </style>
+    </head>
+    <body>
+            <header>
+                        <h1 data-i18n="title">Trylogue</h1>h1>
+                        <nav>
+                                        <ul>
+                                                            <li><a href="#about" data-i18n="nav_about">About</a>a></li>
+                                                        <li><a href="#features" data-i18n="nav_features">Features</a>a></li>
+                                                        <li><a href="#download" data-i18n="nav_apps">Apps</a>a></li>
+                                        </ul>
+                        </nav>
+                    <div class="lang-switch">
+                                <button onclick="setLanguage('ja')">JP</button>button>
+                                <button onclick="setLanguage('en')">EN</button>button>
+                    </div>div>
+            </header>
+    
+        <section id="hero">
+                <div class="hero-content">
+                            <h2 data-i18n="hero_title">挑戦の記録を、<br>もっと楽しく。</h2>h2>
+                            <p data-i18n="hero_subtitle">Trylogueはあなたの成長を見える化し、毎日の挑戦をサポートします。</p>p>
+                            <button class="cta-button" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})" data-i18n="hero_button">もっと知る</button>button>
+                </div>div>
+        </section>section>
+    
+        <section id="about" class="fade-in-section">
+                <h2 data-i18n="about_title">About</h2>h2>
+                <div style="text-align: center; max-width: 700px; margin: 0 auto; color: var(--text-sub); font-size: 1.1rem;">
+                            <p data-i18n="about_text">
+                                Trylogueは、挑戦や習慣の記録を通じてあなたの目標達成を支援するサービスです。
+                                振り返りや分析機能を通して、日々の小さな成長を実感できます。
+                            </p>p>
+                </div>div>
+        </section>section>
+    
+        <section id="features" class="fade-in-section">
+                <h2 data-i18n="features_title">Features</h2>h2>
+                <div class="features-grid">
+                            <div class="feature-card">
+                                            <span class="feature-icon">🎯</span>span>
+                                            <h3 data-i18n="features_item1_title">目標管理</h3>h3>
+                                            <p data-i18n="features_item1">目標の記録と進捗を直感的に管理。自分の立ち位置が一目でわかります。</p>p>
+                            </div>div>
+                            <div class="feature-card">
+                                            <span class="feature-icon">📊</span>span>
+                                            <h3 data-i18n="features_item2_title">データ可視化</h3>h3>
+                                            <p data-i18n="features_item2">睡眠・運動・学習データをグラフ化。客観的なデータで生活を改善。</p>p>
+                            </div>div>
+                            <div class="feature-card">
+                                            <span class="feature-icon">💡</span>span>
+                                            <h3 data-i18n="features_item3_title">フィードバック</h3>h3>
+                                            <p data-i18n="features_item3">成長をモチベーションに変えるインサイトを提供し、継続をサポート。</p>p>
+                            </div>div>
+                </div>div>
+        </section>section>
+    
+        <section id="download" class="fade-in-section">
+                <h2 data-i18n="apps_title">Download Apps</h2>h2>
+                <div class="app-links">
+                
+                            <!-- Cromo -->
+                            <a href="#" class="app-item">
+                                            <img src="Cromo-icon.png" alt="Cromo" class="app-icon" onerror="this.src='https://placehold.co/100x100/4F46E5/white?text=C'">
+                                            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on App Store" class="store-badge">
+                                            <p class="app-name" data-i18n="app_cromo">Cromo</p>p>
+                            </a>a>
+                
+                            <!-- PetaKey -->
+                            <a href="#" class="app-item">
+                                            <img src="petakey.icon" alt="PetaKey" class="app-icon" onerror="this.src='https://placehold.co/100x100/F59E0B/white?text=P'">
+                                            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on App Store" class="store-badge">
+                                            <p class="app-name" data-i18n="app_petakey">PetaKey</p>p>
+                            </a>a>
+                
+                            <!-- SomniNote -->
+                            <a href="#" class="app-item">
+                                            <img src="somninote.icon" alt="SomniNote" class="app-icon" onerror="this.src='https://placehold.co/100x100/6366F1/white?text=S'">
+                                            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on App Store" class="store-badge">
+                                            <p class="app-name" data-i18n="app_somninote">SomniNote</p>p>
+                            </a>a>
+                
+                            <!-- フォーカスアップ -->
+                            <a href="#" class="app-item">
+                                            <img src="focusup.icon" alt="フォーカスアップ" class="app-icon" onerror="this.src='https://placehold.co/100x100/10B981/white?text=F'">
+                                            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on App Store" class="store-badge">
+                                            <p class="app-name" data-i18n="app_focusup">フォーカスアップ</p>p>
+                            </a>a>
+                
+                            <!-- BitIron -->
+                            <a href="#" class="app-item">
+                                            <img src="bitiron.icon" alt="BitIron" class="app-icon" onerror="this.src='https://placehold.co/100x100/EF4444/white?text=B'">
+                                            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on App Store" class="store-badge">
+                                            <p class="app-name" data-i18n="app_bitiron">BitIron</p>p>
+                            </a>a>
+                
+                            <!-- PortAI -->
+                            <a href="#" class="app-item">
+                                            <img src="portai.icon" alt="PortAI" class="app-icon" onerror="this.src='https://placehold.co/100x100/3B82F6/white?text=P'">
+                                            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on App Store" class="store-badge">
+                                            <p class="app-name" data-i18n="app_portai">PortAI</p>p>
+                            </a>a>
+                
+                            <!-- SubSmart -->
+                            <a href="#" class="app-item">
+                                            <img src="subsmart.icon" alt="SubSmart" class="app-icon" onerror="this.src='https://placehold.co/100x100/EC4899/white?text=S'">
+                                            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on App Store" class="store-badge">
+                                            <p class="app-name" data-i18n="app_subsmart">SubSmart</p>p>
+                            </a>a>
+                
+                            <!-- WalkEvo -->
+                            <a href="#" class="app-item">
+                                            <img src="walkevo.icon" alt="WalkEvo" class="app-icon" onerror="this.src='https://placehold.co/100x100/84CC16/white?text=W'">
+                                            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on App Store" class="store-badge">
+                                            <p class="app-name" data-i18n="app_walkevo">WalkEvo</p>p>
+                            </a>a>
+                
+                </div>div>
+        </section>section>
+    
+        <footer>
+                    <p>&copy; 2025 Trylogue. All rights reserved.</p>
+        </footer>
+    
+        <script>
+                    const translations = {
+                                    ja: {
+                                                        title: "Trylogue",
+                                                        nav_about: "About",
+                                                        nav_features: "Features",
+                                                        nav_apps: "Apps",
+                                                        hero_title: "挑戦の記録を、<br>もっと楽しく。",
+                                                        hero_subtitle: "Trylogueはあなたの成長を見える化し、毎日の挑戦をサポートします。",
+                                                        hero_button: "もっと知る",
+                                                        about_title: "About",
+                                                        about_text: "Trylogueは、挑戦や習慣の記録を通じてあなたの目標達成を支援するサービスです。振り返りや分析機能を通して、日々の小さな成長を実感できます。",
+                                                        features_title: "Features",
+                                                        features_item1_title: "目標管理",
+                                                        features_item1: "目標の記録と進捗管理",
+                                                        features_item2_title: "データ可視化",
+                                                        features_item2: "睡眠・運動・学習データの可視化",
+                                                        features_item3_title: "フィードバック",
+                                                        features_item3: "成長をモチベーションに変えるフィードバック",
+                                                        apps_title: "Download Apps",
+                                                        app_cromo: "Cromo",
+                                                        app_petakey: "PetaKey",
+                                                        app_somninote: "SomniNote",
+                                                        app_focusup: "フォーカスアップ",
+                                                        app_bitiron: "BitIron",
+                                                        app_portai: "PortAI",
+                                                        app_subsmart: "SubSmart",
+                                                        app_walkevo: "WalkEvo",
+                                                        coming_soon: "近日リリース"
+                                    },
+                                    en: {
+                                                        title: "Trylogue",
+                                                        nav_about: "About",
+                                                        nav_features: "Features",
+                                                        nav_apps: "Apps",
+                                                        hero_title: "Make Your Journey<br>More Exciting.",
+                                                        hero_subtitle: "Trylogue visualizes your growth and supports your daily challenges.",
+                                                        hero_button: "Learn More",
+                                                        about_title: "About",
+                                                        about_text: "Trylogue helps you achieve your goals by tracking your challenges and habits. Feel your daily growth through reflection and analysis.",
+                                                        features_title: "Features",
+                                                        features_item1_title: "Goal Tracking",
+                                                        features_item1: "Record goals and manage progress efficiently.",
+                                                        features_item2_title: "Data Visualization",
+                                                        features_item2: "Visualize sleep, exercise, and learning data.",
+                                                        features_item3_title: "Feedback",
+                                                        features_item3: "Turn growth into motivation with smart feedback.",
+                                                        apps_title: "Download Apps",
+                                                        app_cromo: "Cromo",
+                                                        app_petakey: "PetaKey",
+                                                        app_somninote: "SomniNote",
+                                                        app_focusup: "Focus Up",
+                                                        app_bitiron: "BitIron",
+                                                        app_portai: "PortAI",
+                                                        app_subsmart: "SubSmart",
+                                                        app_walkevo: "WalkEvo",
+                                                        coming_soon: "Coming Soon"
+                                    }
+                    };
+
+                    function setLanguage(lang) {
+                                    document.documentElement.lang = lang;
+                                    const elements = document.querySelectorAll('[data-i18n]');
+                                    elements.forEach(el => {
+                                                        const key = el.getAttribute('data-i18n');
+                                                        if (translations[lang][key]) {
+                                                                                if (key.includes('hero_title')) {
+                                                                                                            el.innerHTML = translations[lang][key];
+                                                                                    } else {
+                                                                                                            el.innerText = translations[lang][key];
+                                                                                    }
+                                                        }
+                                    });
+                    }
+
+                    // スクロール時のフェードイン
+                    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+                    const observer = new IntersectionObserver((entries, observer) => {
+                                    entries.forEach(entry => {
+                                                        if (entry.isIntersecting) {
+                                                                                entry.target.classList.add('is-visible');
+                                                                                observer.unobserve(entry.target);
+                                                        }
+                                    });
+                    }, observerOptions);
+                    document.querySelectorAll('.fade-in-section').forEach(section => {
+                                    observer.observe(section);
+                    });
+
+                    window.addEventListener("DOMContentLoaded", () => setLanguage("en"));
+        </script>
+    </body>
+</html>html>
+        </script></p>
+        </footer></li></li>
+                                        </ul>
+                        </nav>
+            </header>
+    </body>
+        </style></title>
+    </head>
