@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SubSmart（サブスマ）– サブスク・固定費管理アプリ | Trylogue</title>
+    <meta name="description" content="SubSmartは、サブスクリプションや固定費を一元管理し、無駄な出費を見直すための家計管理アプリです。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7C3AED;
+            --secondary: #22D3EE;
+            --accent: #10B981;
+            --bg-color: #0B1020;
+            --text-main: #E5E7EB;
+            --text-sub: #94A3B8;
+            --glass-bg: rgba(16, 24, 40, 0.7);
+            --radius: 18px;
+            --neon-border: rgba(16, 185, 129, 0.45);
+            --grid-line: rgba(148, 163, 184, 0.08);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+        body::before, body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -2; }
+        body::before {
+            background:
+                radial-gradient(circle at 15% 20%, rgba(16, 185, 129, 0.18), transparent 45%),
+                radial-gradient(circle at 80% 15%, rgba(34, 211, 238, 0.15), transparent 40%),
+                radial-gradient(circle at 50% 80%, rgba(132, 204, 22, 0.12), transparent 45%);
+        }
+        body::after {
+            background-image:
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -1; opacity: 0.35;
+        }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        header {
+            position: sticky; top: 0; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+            box-shadow: 0 12px 40px rgba(2, 8, 23, 0.55);
+        }
+        .header-logo {
+            font-weight: 800; font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: -0.05em;
+        }
+        .back-link {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 0.9rem; color: var(--text-sub);
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            padding: 6px 14px; border-radius: 20px; transition: 0.3s;
+        }
+        .back-link:hover { border-color: var(--secondary); color: var(--secondary); }
+        .back-link svg { width: 14px; height: 14px; fill: currentColor; }
+        .app-hero {
+            padding: 80px 20px 60px; text-align: center;
+            max-width: 800px; margin: 0 auto;
+            animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .app-icon-wrap {
+            display: inline-block; margin-bottom: 28px; position: relative;
+        }
+        .app-icon-wrap::after {
+            content: ''; position: absolute; inset: -12px; border-radius: 38px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.3), transparent 70%);
+            z-index: -1;
+        }
+        .app-icon-large {
+            width: 130px; height: 130px; border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(2, 6, 23, 0.6), 0 0 0 1px rgba(148, 163, 184, 0.2);
+            object-fit: cover; display: block;
+        }
+        .app-hero h1 {
+            font-size: 2.8rem; font-weight: 800; letter-spacing: -0.04em;
+            background: linear-gradient(120deg, #fff, #6EE7B7);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+        .app-hero .tagline { font-size: 1.15rem; color: var(--text-sub); margin-bottom: 36px; }
+        .store-btn { display: inline-block; transition: transform 0.25s, filter 0.25s; }
+        .store-btn img { height: 52px; display: block; }
+        .store-btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        .app-description { max-width: 760px; margin: 0 auto; padding: 0 20px 80px; }
+        .section-label {
+            font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em;
+            text-transform: uppercase; color: var(--secondary); margin-bottom: 12px;
+        }
+        .app-description h2 {
+            font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em;
+            margin-bottom: 20px; color: var(--text-main);
+        }
+        .app-description p { font-size: 1rem; color: var(--text-sub); line-height: 1.85; margin-bottom: 20px; }
+        .features-section { max-width: 760px; margin: 0 auto; padding: 0 20px 80px; }
+        .features-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px; margin-top: 28px;
+        }
+        .feature-card {
+            background: rgba(16, 24, 40, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            border-radius: var(--radius); padding: 24px 20px;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+        .feature-card:hover { border-color: var(--neon-border); transform: translateY(-4px); }
+        .feature-icon { font-size: 2rem; margin-bottom: 12px; display: block; }
+        .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
+        .feature-card p { font-size: 0.85rem; color: var(--text-sub); line-height: 1.6; }
+        .cta-section { text-align: center; padding: 60px 20px 100px; max-width: 600px; margin: 0 auto; }
+        .cta-section h2 {
+            font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 14px;
+            background: linear-gradient(120deg, #fff, #6EE7B7);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .cta-section p { color: var(--text-sub); font-size: 1rem; margin-bottom: 32px; }
+        footer {
+            text-align: center; padding: 40px;
+            background: rgba(15, 23, 42, 0.8);
+            border-top: 1px solid rgba(148, 163, 184, 0.15);
+            color: var(--text-sub); font-size: 0.9rem;
+        }
+        .fade-in {
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+        }
+        .fade-in.is-visible { opacity: 1; transform: none; }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .divider {
+            max-width: 760px; margin: 0 auto 60px; height: 1px;
+            background: linear-gradient(to right, transparent, rgba(148, 163, 184, 0.2), transparent);
+        }
+        @media (max-width: 600px) {
+            header { padding: 15px 20px; }
+            .app-hero h1 { font-size: 2rem; }
+            .app-icon-large { width: 100px; height: 100px; }
+            .features-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="../index.html" class="header-logo">Trylogue</a>
+        <a href="../index.html" class="back-link">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            アプリ一覧へ
+        </a>
+    </header>
+
+    <section class="app-hero">
+        <div class="app-icon-wrap">
+            <img src="../subsmart.icon" alt="SubSmart アイコン" class="app-icon-large"
+                 onerror="this.src='https://placehold.co/130x130/EC4899/white?text=S'">
+        </div>
+        <h1>SubSmart</h1>
+        <p class="tagline">サブスクを把握して、お金の流れをコントロール。</p>
+        <a href="#" class="store-btn">
+            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                 alt="Download on the App Store">
+        </a>
+    </section>
+
+    <div class="app-description fade-in">
+        <p class="section-label">About</p>
+        <h2>SubSmart（サブスマ）とは</h2>
+        <p>
+            SubSmart（サブスマ）は、増え続けるサブスクリプションや固定費を一元管理できる家計管理アプリです。
+            毎月の支払いをまとめて登録することで、月々の固定支出を可視化し、無駄な出費を見直すきっかけを提供します。
+        </p>
+        <p>
+            「いつの間にか契約していたサービス」を把握し、本当に必要なものだけに絞ることで、
+            家計の最適化をサポートします。シンプルな操作で、お金の管理をもっとスマートに。
+        </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="features-section fade-in">
+        <p class="section-label">Features</p>
+        <h2>主な機能</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">💳</span>
+                <h3>サブスク登録</h3>
+                <p>サービス名・金額・支払いサイクルを登録して、すべての契約を一か所で管理できます。</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📊</span>
+                <h3>月額合計の可視化</h3>
+                <p>登録した支出の月額・年額合計を自動計算。毎月いくら払っているか一目でわかります。</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🔔</span>
+                <h3>更新リマインダー</h3>
+                <p>支払い日が近づくと通知でお知らせ。更新を見逃さず、解約タイミングも逃しません。</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🗂️</span>
+                <h3>カテゴリ管理</h3>
+                <p>エンタメ・仕事・生活費などカテゴリ別に整理して、支出の内訳を把握できます。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="cta-section fade-in">
+        <h2>今すぐ無料でダウンロード</h2>
+        <p>App Storeから無料でダウンロードできます。<br>サブスクを整理して、賢くお金を使いましょう。</p>
+        <a href="#" class="store-btn">
+            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                 alt="Download on the App Store">
+        </a>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Trylogue. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
