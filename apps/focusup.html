@@ -10,211 +10,113 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #7C3AED;
-            --secondary: #22D3EE;
-            --accent: #EF4444;
-            --bg-color: #0B1020;
-            --text-main: #E5E7EB;
-            --text-sub: #94A3B8;
-            --glass-bg: rgba(16, 24, 40, 0.7);
-            --radius: 18px;
-            --neon-border: rgba(239, 68, 68, 0.45);
-            --grid-line: rgba(148, 163, 184, 0.08);
+            --primary: #7C3AED; --secondary: #22D3EE; --bg-color: #0B1020;
+            --text-main: #E5E7EB; --text-sub: #94A3B8; --glass-bg: rgba(16, 24, 40, 0.7);
+            --radius: 18px; --neon-border: rgba(239, 68, 68, 0.45); --grid-line: rgba(148, 163, 184, 0.08);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', 'Noto Sans JP', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-        }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; overflow-x: hidden; position: relative; }
         body::before, body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -2; }
-        body::before {
-            background:
-                radial-gradient(circle at 15% 20%, rgba(239, 68, 68, 0.18), transparent 45%),
-                radial-gradient(circle at 80% 15%, rgba(34, 211, 238, 0.12), transparent 40%),
-                radial-gradient(circle at 50% 80%, rgba(16, 185, 129, 0.15), transparent 45%);
-        }
-        body::after {
-            background-image:
-                linear-gradient(var(--grid-line) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-            background-size: 60px 60px;
-            z-index: -1; opacity: 0.35;
-        }
+        body::before { background: radial-gradient(circle at 15% 20%, rgba(239, 68, 68, 0.18), transparent 45%), radial-gradient(circle at 80% 15%, rgba(34, 211, 238, 0.12), transparent 40%), radial-gradient(circle at 50% 80%, rgba(16, 185, 129, 0.15), transparent 45%); }
+        body::after { background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px); background-size: 60px 60px; z-index: -1; opacity: 0.35; }
         a { text-decoration: none; color: inherit; transition: 0.3s; }
-        header {
-            position: sticky; top: 0; z-index: 1000;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 40px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(148, 163, 184, 0.15);
-            box-shadow: 0 12px 40px rgba(2, 8, 23, 0.55);
-        }
-        .header-logo {
-            font-weight: 800; font-size: 1.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            letter-spacing: -0.05em;
-        }
-        .back-link {
-            display: flex; align-items: center; gap: 6px;
-            font-size: 0.9rem; color: var(--text-sub);
-            border: 1px solid rgba(148, 163, 184, 0.3);
-            padding: 6px 14px; border-radius: 20px; transition: 0.3s;
-        }
+        header { position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background: var(--glass-bg); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(148, 163, 184, 0.15); box-shadow: 0 12px 40px rgba(2, 8, 23, 0.55); }
+        .header-left { display: flex; align-items: center; gap: 20px; }
+        .header-logo { font-weight: 800; font-size: 1.5rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.05em; }
+        .back-link { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--text-sub); border: 1px solid rgba(148, 163, 184, 0.3); padding: 6px 14px; border-radius: 20px; transition: 0.3s; }
         .back-link:hover { border-color: var(--secondary); color: var(--secondary); }
         .back-link svg { width: 14px; height: 14px; fill: currentColor; }
-        .app-hero {
-            padding: 80px 20px 60px; text-align: center;
-            max-width: 800px; margin: 0 auto;
-            animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-        .app-icon-wrap {
-            display: inline-block; margin-bottom: 28px; position: relative;
-        }
-        .app-icon-wrap::after {
-            content: ''; position: absolute; inset: -12px; border-radius: 38px;
-            background: radial-gradient(circle, rgba(239, 68, 68, 0.3), transparent 70%);
-            z-index: -1;
-        }
-        .app-icon-large {
-            width: 130px; height: 130px; border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(2, 6, 23, 0.6), 0 0 0 1px rgba(148, 163, 184, 0.2);
-            object-fit: cover; display: block;
-        }
-        .app-hero h1 {
-            font-size: 2.8rem; font-weight: 800; letter-spacing: -0.04em;
-            background: linear-gradient(120deg, #fff, #FCA5A5);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
-        }
+        .lang-switch button { background: none; border: 1px solid rgba(148, 163, 184, 0.4); padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; transition: 0.3s; color: var(--text-sub); margin-left: 6px; }
+        .lang-switch button:hover, .lang-switch button.active { border-color: var(--secondary); color: var(--secondary); }
+        .app-hero { padding: 80px 20px 60px; text-align: center; max-width: 800px; margin: 0 auto; animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .app-icon-wrap { display: inline-block; margin-bottom: 28px; position: relative; }
+        .app-icon-wrap::after { content: ''; position: absolute; inset: -12px; border-radius: 38px; background: radial-gradient(circle, rgba(239, 68, 68, 0.3), transparent 70%); z-index: -1; }
+        .app-icon-large { width: 130px; height: 130px; border-radius: 30px; box-shadow: 0 20px 50px rgba(2, 6, 23, 0.6), 0 0 0 1px rgba(148, 163, 184, 0.2); object-fit: cover; display: block; }
+        .app-hero h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -0.04em; background: linear-gradient(120deg, #fff, #FCA5A5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; }
         .app-hero .tagline { font-size: 1.15rem; color: var(--text-sub); margin-bottom: 36px; }
         .store-btn { display: inline-block; transition: transform 0.25s, filter 0.25s; }
         .store-btn img { height: 52px; display: block; }
         .store-btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
         .app-description { max-width: 760px; margin: 0 auto; padding: 0 20px 80px; }
-        .section-label {
-            font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em;
-            text-transform: uppercase; color: var(--secondary); margin-bottom: 12px;
-        }
-        .app-description h2 {
-            font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em;
-            margin-bottom: 20px; color: var(--text-main);
-        }
+        .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--secondary); margin-bottom: 12px; }
+        .app-description h2 { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 20px; color: var(--text-main); }
         .app-description p { font-size: 1rem; color: var(--text-sub); line-height: 1.85; margin-bottom: 20px; }
         .features-section { max-width: 760px; margin: 0 auto; padding: 0 20px 80px; }
-        .features-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px; margin-top: 28px;
-        }
-        .feature-card {
-            background: rgba(16, 24, 40, 0.8);
-            border: 1px solid rgba(148, 163, 184, 0.12);
-            border-radius: var(--radius); padding: 24px 20px;
-            transition: border-color 0.3s, transform 0.3s;
-        }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; margin-top: 28px; }
+        .feature-card { background: rgba(16, 24, 40, 0.8); border: 1px solid rgba(148, 163, 184, 0.12); border-radius: var(--radius); padding: 24px 20px; transition: border-color 0.3s, transform 0.3s; }
         .feature-card:hover { border-color: var(--neon-border); transform: translateY(-4px); }
         .feature-icon { font-size: 2rem; margin-bottom: 12px; display: block; }
         .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
         .feature-card p { font-size: 0.85rem; color: var(--text-sub); line-height: 1.6; }
         .cta-section { text-align: center; padding: 60px 20px 100px; max-width: 600px; margin: 0 auto; }
-        .cta-section h2 {
-            font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 14px;
-            background: linear-gradient(120deg, #fff, #FCA5A5);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
+        .cta-section h2 { font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 14px; background: linear-gradient(120deg, #fff, #FCA5A5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .cta-section p { color: var(--text-sub); font-size: 1rem; margin-bottom: 32px; }
-        footer {
-            text-align: center; padding: 40px;
-            background: rgba(15, 23, 42, 0.8);
-            border-top: 1px solid rgba(148, 163, 184, 0.15);
-            color: var(--text-sub); font-size: 0.9rem;
-        }
-        .fade-in {
-            opacity: 0; transform: translateY(20px);
-            transition: opacity 0.55s ease-out, transform 0.55s ease-out;
-        }
+        footer { text-align: center; padding: 40px; background: rgba(15, 23, 42, 0.8); border-top: 1px solid rgba(148, 163, 184, 0.15); color: var(--text-sub); font-size: 0.9rem; }
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease-out, transform 0.55s ease-out; }
         .fade-in.is-visible { opacity: 1; transform: none; }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(24px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .divider {
-            max-width: 760px; margin: 0 auto 60px; height: 1px;
-            background: linear-gradient(to right, transparent, rgba(148, 163, 184, 0.2), transparent);
-        }
-        @media (max-width: 600px) {
-            header { padding: 15px 20px; }
-            .app-hero h1 { font-size: 2rem; }
-            .app-icon-large { width: 100px; height: 100px; }
-            .features-grid { grid-template-columns: 1fr 1fr; }
-        }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+        .divider { max-width: 760px; margin: 0 auto 60px; height: 1px; background: linear-gradient(to right, transparent, rgba(148, 163, 184, 0.2), transparent); }
+        @media (max-width: 600px) { header { padding: 15px 20px; } .app-hero h1 { font-size: 2rem; } .app-icon-large { width: 100px; height: 100px; } .features-grid { grid-template-columns: 1fr 1fr; } }
     </style>
 </head>
 <body>
     <header>
-        <a href="../index.html" class="header-logo">Trylogue</a>
-        <a href="../index.html" class="back-link">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-            アプリ一覧へ
-        </a>
+        <div class="header-left">
+            <a href="../index.html" class="header-logo">Trylogue</a>
+            <a href="../index.html" class="back-link">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                <span data-i18n="back">アプリ一覧へ</span>
+            </a>
+        </div>
+        <div class="lang-switch">
+            <button onclick="setLanguage('ja')" id="btn-ja">JP</button>
+            <button onclick="setLanguage('en')" id="btn-en">EN</button>
+        </div>
     </header>
 
     <section class="app-hero">
         <div class="app-icon-wrap">
-            <img src="../focusup.icon" alt="Focus Up!! アイコン" class="app-icon-large"
-                 onerror="this.src='https://placehold.co/130x130/10B981/white?text=F'">
+            <img src="../focusup.icon" alt="Focus Up!! アイコン" class="app-icon-large" onerror="this.src='https://placehold.co/130x130/10B981/white?text=F'">
         </div>
         <h1>Focus Up!!</h1>
-        <p class="tagline">集中を習慣に。生産性を次のレベルへ。</p>
+        <p class="tagline" data-i18n="tagline">集中を習慣に。生産性を次のレベルへ。</p>
         <a href="#" class="store-btn">
-            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-                 alt="Download on the App Store">
+            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
         </a>
     </section>
 
     <div class="app-description fade-in">
-        <p class="section-label">About</p>
-        <h2>Focus Up!!とは</h2>
-        <p>
-            Focus Up!!は、ポモドーロテクニックをベースにした集中タイマーアプリです。
-            25分の作業と短い休憩を繰り返すことで、集中力を持続させ、作業効率を大幅に向上させます。
-        </p>
-        <p>
-            シンプルで見やすいタイマーUIにより、余計なことを考えずに作業に没頭できます。
-            勉強・仕事・創作活動など、あらゆる場面での集中をサポートします。
-        </p>
+        <p class="section-label" data-i18n="label_about">About</p>
+        <h2 data-i18n="about_title">Focus Up!!とは</h2>
+        <p data-i18n="about_p1">Focus Up!!は、ポモドーロテクニックをベースにした集中タイマーアプリです。25分の作業と短い休憩を繰り返すことで、集中力を持続させ、作業効率を大幅に向上させます。</p>
+        <p data-i18n="about_p2">シンプルで見やすいタイマーUIにより、余計なことを考えずに作業に没頭できます。勉強・仕事・創作活動など、あらゆる場面での集中をサポートします。</p>
     </div>
 
     <div class="divider"></div>
 
     <div class="features-section fade-in">
-        <p class="section-label">Features</p>
-        <h2>主な機能</h2>
+        <p class="section-label" data-i18n="label_features">Features</p>
+        <h2 data-i18n="features_title">主な機能</h2>
         <div class="features-grid">
             <div class="feature-card">
                 <span class="feature-icon">🍅</span>
-                <h3>ポモドーロタイマー</h3>
-                <p>25分集中＋5分休憩のサイクルで、集中力を効率よく維持できます。</p>
+                <h3 data-i18n="feat1_title">ポモドーロタイマー</h3>
+                <p data-i18n="feat1_desc">25分集中＋5分休憩のサイクルで、集中力を効率よく維持できます。</p>
             </div>
             <div class="feature-card">
                 <span class="feature-icon">⏱️</span>
-                <h3>カスタムタイマー</h3>
-                <p>作業時間・休憩時間を自由にカスタマイズして、自分のペースで使えます。</p>
+                <h3 data-i18n="feat2_title">カスタムタイマー</h3>
+                <p data-i18n="feat2_desc">作業時間・休憩時間を自由にカスタマイズして、自分のペースで使えます。</p>
             </div>
             <div class="feature-card">
                 <span class="feature-icon">📈</span>
-                <h3>集中記録</h3>
-                <p>日々の集中セッション数を記録・確認して、習慣化をサポートします。</p>
+                <h3 data-i18n="feat3_title">集中記録</h3>
+                <p data-i18n="feat3_desc">日々の集中セッション数を記録・確認して、習慣化をサポートします。</p>
             </div>
             <div class="feature-card">
                 <span class="feature-icon">🔔</span>
-                <h3>通知機能</h3>
-                <p>タイマー終了時に通知でお知らせ。切り替えのタイミングを逃しません。</p>
+                <h3 data-i18n="feat4_title">通知機能</h3>
+                <p data-i18n="feat4_desc">タイマー終了時に通知でお知らせ。切り替えのタイミングを逃しません。</p>
             </div>
         </div>
     </div>
@@ -222,11 +124,10 @@
     <div class="divider"></div>
 
     <div class="cta-section fade-in">
-        <h2>今すぐ無料でダウンロード</h2>
-        <p>App Storeから無料でダウンロードできます。<br>集中力を高めて、毎日の生産性を上げましょう。</p>
+        <h2 data-i18n="cta_title">今すぐ無料でダウンロード</h2>
+        <p data-i18n="cta_desc">App Storeから無料でダウンロードできます。<br>集中力を高めて、毎日の生産性を上げましょう。</p>
         <a href="#" class="store-btn">
-            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-                 alt="Download on the App Store">
+            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
         </a>
     </div>
 
@@ -235,15 +136,64 @@
     </footer>
 
     <script>
-        const observer = new IntersectionObserver((entries, obs) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    obs.unobserve(entry.target);
-                }
+        const translations = {
+            ja: {
+                back: "アプリ一覧へ",
+                tagline: "集中を習慣に。生産性を次のレベルへ。",
+                label_about: "About",
+                about_title: "Focus Up!!とは",
+                about_p1: "Focus Up!!は、ポモドーロテクニックをベースにした集中タイマーアプリです。25分の作業と短い休憩を繰り返すことで、集中力を持続させ、作業効率を大幅に向上させます。",
+                about_p2: "シンプルで見やすいタイマーUIにより、余計なことを考えずに作業に没頭できます。勉強・仕事・創作活動など、あらゆる場面での集中をサポートします。",
+                label_features: "Features",
+                features_title: "主な機能",
+                feat1_title: "ポモドーロタイマー",
+                feat1_desc: "25分集中＋5分休憩のサイクルで、集中力を効率よく維持できます。",
+                feat2_title: "カスタムタイマー",
+                feat2_desc: "作業時間・休憩時間を自由にカスタマイズして、自分のペースで使えます。",
+                feat3_title: "集中記録",
+                feat3_desc: "日々の集中セッション数を記録・確認して、習慣化をサポートします。",
+                feat4_title: "通知機能",
+                feat4_desc: "タイマー終了時に通知でお知らせ。切り替えのタイミングを逃しません。",
+                cta_title: "今すぐ無料でダウンロード",
+                cta_desc: "App Storeから無料でダウンロードできます。<br>集中力を高めて、毎日の生産性を上げましょう。"
+            },
+            en: {
+                back: "All Apps",
+                tagline: "Make focus a habit. Level up your productivity.",
+                label_about: "About",
+                about_title: "What is Focus Up!!?",
+                about_p1: "Focus Up!! is a focus timer app based on the Pomodoro Technique. By repeating 25-minute work sessions with short breaks, you can sustain concentration and dramatically improve your work efficiency.",
+                about_p2: "A clean and easy-to-read timer UI lets you dive into your work without distractions. It supports focus in all kinds of activities — studying, working, or creating.",
+                label_features: "Features",
+                features_title: "Key Features",
+                feat1_title: "Pomodoro Timer",
+                feat1_desc: "Stay focused with a 25-minute work + 5-minute break cycle to maintain concentration efficiently.",
+                feat2_title: "Custom Timer",
+                feat2_desc: "Freely customize work and break durations to fit your own pace.",
+                feat3_title: "Focus Log",
+                feat3_desc: "Track and review your daily focus session count to build a consistent habit.",
+                feat4_title: "Notifications",
+                feat4_desc: "Get notified when the timer ends so you never miss the moment to switch.",
+                cta_title: "Download for Free",
+                cta_desc: "Available for free on the App Store.<br>Boost your focus and daily productivity."
+            }
+        };
+
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key] !== undefined) el.innerHTML = translations[lang][key];
             });
+            document.getElementById('btn-ja').classList.toggle('active', lang === 'ja');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+        }
+
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); obs.unobserve(entry.target); } });
         }, { threshold: 0.1 });
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        window.addEventListener('DOMContentLoaded', () => setLanguage('ja'));
     </script>
 </body>
 </html>

@@ -63,6 +63,11 @@
             border-bottom: 1px solid rgba(148, 163, 184, 0.15);
             box-shadow: 0 12px 40px rgba(2, 8, 23, 0.55);
         }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
         .header-logo {
             font-weight: 800;
             font-size: 1.5rem;
@@ -90,6 +95,22 @@
             width: 14px;
             height: 14px;
             fill: currentColor;
+        }
+        .lang-switch button {
+            background: none;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            padding: 5px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.3s;
+            color: var(--text-sub);
+            margin-left: 6px;
+        }
+        .lang-switch button:hover,
+        .lang-switch button.active {
+            border-color: var(--secondary);
+            color: var(--secondary);
         }
 
         /* --- Hero Section --- */
@@ -279,11 +300,17 @@
 </head>
 <body>
     <header>
-        <a href="../index.html" class="header-logo">Trylogue</a>
-        <a href="../index.html" class="back-link">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-            アプリ一覧へ
-        </a>
+        <div class="header-left">
+            <a href="../index.html" class="header-logo">Trylogue</a>
+            <a href="../index.html" class="back-link">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                <span data-i18n="back">アプリ一覧へ</span>
+            </a>
+        </div>
+        <div class="lang-switch">
+            <button onclick="setLanguage('ja')" id="btn-ja">JP</button>
+            <button onclick="setLanguage('en')" id="btn-en">EN</button>
+        </div>
     </header>
 
     <!-- Hero -->
@@ -293,7 +320,7 @@
                  onerror="this.src='https://placehold.co/130x130/6366F1/white?text=S'">
         </div>
         <h1>SomniLab</h1>
-        <p class="tagline">睡眠を記録して、より良い眠りへ。</p>
+        <p class="tagline" data-i18n="tagline">睡眠を記録して、より良い眠りへ。</p>
         <a href="https://apps.apple.com/jp/app/%E3%83%8D%E3%83%A0%E3%83%AD%E3%82%B0/id6661027528"
            target="_blank" rel="noopener noreferrer" class="store-btn">
             <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
@@ -303,14 +330,14 @@
 
     <!-- Description -->
     <div class="app-description fade-in">
-        <p class="section-label">About</p>
-        <h2>SomniLabとは</h2>
-        <p>
+        <p class="section-label" data-i18n="label_about">About</p>
+        <h2 data-i18n="about_title">SomniLabとは</h2>
+        <p data-i18n="about_p1">
             SomniLab（ネムログ）は、毎日の睡眠を手軽に記録・分析できる睡眠管理アプリです。
             就寝時刻・起床時刻・睡眠の質を日々トラッキングすることで、自分の睡眠パターンを可視化し、
             生活リズムの改善をサポートします。
         </p>
-        <p>
+        <p data-i18n="about_p2">
             シンプルで直感的なUIにより、毎日の記録が習慣になります。
             週・月単位のグラフで睡眠の傾向を把握し、より健康的な生活へとつなげましょう。
         </p>
@@ -320,28 +347,28 @@
 
     <!-- Features -->
     <div class="features-section fade-in">
-        <p class="section-label">Features</p>
-        <h2>主な機能</h2>
+        <p class="section-label" data-i18n="label_features">Features</p>
+        <h2 data-i18n="features_title">主な機能</h2>
         <div class="features-grid">
             <div class="feature-card">
                 <span class="feature-icon">🌙</span>
-                <h3>睡眠記録</h3>
-                <p>就寝・起床時刻をワンタップで記録。毎日の睡眠ログを簡単に管理できます。</p>
+                <h3 data-i18n="feat1_title">睡眠記録</h3>
+                <p data-i18n="feat1_desc">就寝・起床時刻をワンタップで記録。毎日の睡眠ログを簡単に管理できます。</p>
             </div>
             <div class="feature-card">
                 <span class="feature-icon">📊</span>
-                <h3>グラフ分析</h3>
-                <p>週・月単位のグラフで睡眠時間の推移を視覚的に確認できます。</p>
+                <h3 data-i18n="feat2_title">グラフ分析</h3>
+                <p data-i18n="feat2_desc">週・月単位のグラフで睡眠時間の推移を視覚的に確認できます。</p>
             </div>
             <div class="feature-card">
                 <span class="feature-icon">⭐</span>
-                <h3>睡眠の質を評価</h3>
-                <p>その日の睡眠の質を5段階で評価し、コンディションの変化を追跡します。</p>
+                <h3 data-i18n="feat3_title">睡眠の質を評価</h3>
+                <p data-i18n="feat3_desc">その日の睡眠の質を5段階で評価し、コンディションの変化を追跡します。</p>
             </div>
             <div class="feature-card">
                 <span class="feature-icon">📝</span>
-                <h3>メモ機能</h3>
-                <p>睡眠に関するメモや気づきを記録して、生活習慣の改善に役立てましょう。</p>
+                <h3 data-i18n="feat4_title">メモ機能</h3>
+                <p data-i18n="feat4_desc">睡眠に関するメモや気づきを記録して、生活習慣の改善に役立てましょう。</p>
             </div>
         </div>
     </div>
@@ -350,8 +377,8 @@
 
     <!-- CTA -->
     <div class="cta-section fade-in">
-        <h2>今すぐ無料でダウンロード</h2>
-        <p>App Storeから無料でダウンロードできます。<br>より良い眠りへの第一歩を踏み出しましょう。</p>
+        <h2 data-i18n="cta_title">今すぐ無料でダウンロード</h2>
+        <p data-i18n="cta_desc">App Storeから無料でダウンロードできます。<br>より良い眠りへの第一歩を踏み出しましょう。</p>
         <a href="https://apps.apple.com/jp/app/%E3%83%8D%E3%83%A0%E3%83%AD%E3%82%B0/id6661027528"
            target="_blank" rel="noopener noreferrer" class="store-btn">
             <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
@@ -364,6 +391,61 @@
     </footer>
 
     <script>
+        const translations = {
+            ja: {
+                back: "アプリ一覧へ",
+                tagline: "睡眠を記録して、より良い眠りへ。",
+                label_about: "About",
+                about_title: "SomniLabとは",
+                about_p1: "SomniLab（ネムログ）は、毎日の睡眠を手軽に記録・分析できる睡眠管理アプリです。就寝時刻・起床時刻・睡眠の質を日々トラッキングすることで、自分の睡眠パターンを可視化し、生活リズムの改善をサポートします。",
+                about_p2: "シンプルで直感的なUIにより、毎日の記録が習慣になります。週・月単位のグラフで睡眠の傾向を把握し、より健康的な生活へとつなげましょう。",
+                label_features: "Features",
+                features_title: "主な機能",
+                feat1_title: "睡眠記録",
+                feat1_desc: "就寝・起床時刻をワンタップで記録。毎日の睡眠ログを簡単に管理できます。",
+                feat2_title: "グラフ分析",
+                feat2_desc: "週・月単位のグラフで睡眠時間の推移を視覚的に確認できます。",
+                feat3_title: "睡眠の質を評価",
+                feat3_desc: "その日の睡眠の質を5段階で評価し、コンディションの変化を追跡します。",
+                feat4_title: "メモ機能",
+                feat4_desc: "睡眠に関するメモや気づきを記録して、生活習慣の改善に役立てましょう。",
+                cta_title: "今すぐ無料でダウンロード",
+                cta_desc: "App Storeから無料でダウンロードできます。<br>より良い眠りへの第一歩を踏み出しましょう。"
+            },
+            en: {
+                back: "All Apps",
+                tagline: "Track your sleep. Wake up better.",
+                label_about: "About",
+                about_title: "What is SomniLab?",
+                about_p1: "SomniLab is a sleep tracking app that lets you easily record and analyze your daily sleep. By tracking your bedtime, wake time, and sleep quality every day, you can visualize your sleep patterns and improve your daily routine.",
+                about_p2: "With a simple and intuitive UI, logging your sleep becomes a daily habit. Use weekly and monthly graphs to understand your sleep trends and build a healthier lifestyle.",
+                label_features: "Features",
+                features_title: "Key Features",
+                feat1_title: "Sleep Logging",
+                feat1_desc: "Record your bedtime and wake time with a single tap. Manage your daily sleep log effortlessly.",
+                feat2_title: "Graph Analysis",
+                feat2_desc: "Visualize your sleep duration trends with weekly and monthly graphs.",
+                feat3_title: "Sleep Quality Rating",
+                feat3_desc: "Rate your sleep quality on a 5-point scale and track changes in your condition over time.",
+                feat4_title: "Memo Feature",
+                feat4_desc: "Jot down notes and insights about your sleep to help improve your lifestyle habits.",
+                cta_title: "Download for Free",
+                cta_desc: "Available for free on the App Store.<br>Take the first step toward better sleep."
+            }
+        };
+
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key] !== undefined) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            document.getElementById('btn-ja').classList.toggle('active', lang === 'ja');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+        }
+
         const observer = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -373,6 +455,8 @@
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        window.addEventListener('DOMContentLoaded', () => setLanguage('ja'));
     </script>
 </body>
 </html>
