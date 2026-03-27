@@ -20,6 +20,14 @@ It is a static landing page that introduces the service, its features, app entry
 - Main content: service introduction, feature highlights, app links, and contact information
 - Language switch: Japanese / English
 
+## 公開ページ
+
+- URL: `https://trylogue.github.io/trylogue-homepage/`
+
+## Live URL
+
+- URL: `https://trylogue.github.io/trylogue-homepage/`
+
 ## ファイル構成
 
 - `index.html`
@@ -73,7 +81,7 @@ open index.html
 python3 -m http.server 8000
 ```
 
-その後、ブラウザで `http://localhost:8000` を開いて確認してください。
+その後、ブラウザで `http://localhost:8000` ゚開いて確認してください。
 
 ## Local Preview
 
